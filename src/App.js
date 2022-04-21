@@ -96,7 +96,7 @@ function App() {
 
               <MeasuredActivity 
                 units={Units}
-                activity={decay.value} 
+                activity={decay.value.toString()} 
                 unit={decay.unit} 
                 onChange={handleChange} />
               

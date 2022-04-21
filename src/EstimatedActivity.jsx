@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import "./App.css";
 
 const EstimatedActivity = ({activity, unit, units}) => {
@@ -30,6 +31,16 @@ const EstimatedActivity = ({activity, unit, units}) => {
 
         </div>
     );
+}
+
+EstimatedActivity.propTypes = {
+    activity: PropTypes.number,
+    unit: PropTypes.string.isRequired,
+    units: PropTypes.array.isRequired
+}
+
+EstimatedActivity.defaultProps = {
+    activity: 0
 }
 
 export default EstimatedActivity;

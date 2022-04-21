@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import "./form.css";
 
 const MeasuredActivity = ({units, activity, unit, onChange}) => {
@@ -26,5 +27,13 @@ const MeasuredActivity = ({units, activity, unit, onChange}) => {
         </div>
     );
 }
+
+MeasuredActivity.propTypes = {
+    units: PropTypes.array.isRequired,
+    activity: PropTypes.string.isRequired,
+    unit: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired
+}
+
 
 export default MeasuredActivity;
