@@ -63,4 +63,5 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: flex-start;
+  padding-bottom: 1em;
 }
