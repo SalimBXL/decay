@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
 }
 
 .App-logo {
@@ -20,6 +25,11 @@
   justify-content: center;
   font-size: calc(10px + 1vmin);
   color: white;
+}
+
+.footpage {
+  color: whitesmoke;
+  padding-bottom: 1em;
 }
 
 .App-header {
@@ -64,4 +74,8 @@
   justify-content: space-evenly;
   align-items: flex-start;
   padding-bottom: 1em;
+}
+
+.hr {
+  border-top: 1px solid grey;
 }

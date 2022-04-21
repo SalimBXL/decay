@@ -62,7 +62,7 @@ function App() {
         <h1 className='App-header-title'>Nuclear Decay</h1>
       </header>
 
-      <hr />
+      <div className='hr'></div>
 
       <main className='App-main'>
 
@@ -105,13 +105,19 @@ function App() {
         </form>
       </main>
 
-      <hr />
+      <div className='hr'></div>
 
-      <footer className='App-footer'>
+      <div className='App-footer'>
         <EstimatedActivity 
           activity={decayCompute} 
           unit={decay.unit}
           units={Units} />
+      </div>
+
+      <div className='hr'></div>
+
+      <footer className='footpage'>
+        <small>(c)2022 Salim - PETScan Cyclotron ULB Erasme</small>
       </footer>
     </div>
   );
