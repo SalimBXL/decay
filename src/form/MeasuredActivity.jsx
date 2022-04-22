@@ -17,13 +17,16 @@ const MeasuredActivity = ({units, activity, unit, onChange}) => {
                 onChange={onChange}
             />
             </label>
-            
+
+            &nbsp;&nbsp;
+
             <label style={{size: "50px"}}>
-            Unit : &nbsp;
-            <select name="unit" value={unit} onChange={onChange} >
-                {units.map(({name, coeff}) => <option key={name} value={name}>{name}</option>)}
-            </select>
+                Unit : &nbsp;
+                <select name="unit" value={unit} onChange={onChange} >
+                    {units.map(({name, coeff}) => <option key={name} value={name}>{name}</option>)}
+                </select>
             </label>
+            
         </div>
     );
 }
