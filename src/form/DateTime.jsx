@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import "./form.css";
 
-const DateTime = ({label, name, value, enable, onChange}) => {
+const DateTime = ({label, name, value, disabled, onChange}) => {
     return (
         <label className='datetime'>
             {label} : &nbsp;
@@ -11,7 +11,7 @@ const DateTime = ({label, name, value, enable, onChange}) => {
                 name={name}
                 value={value} 
                 onChange={onChange}
-                disabled={!enable}
+                disabled={disabled}
             />
         </label>
     );
@@ -26,7 +26,7 @@ DateTime.propTypes = {
 }
 
 DateTime.defaultProps = {
-    enable: true
+    disabled: false
 }
 
 export default DateTime;

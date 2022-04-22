@@ -16,6 +16,7 @@ function App() {
   ];
   const [decayCompute, setDecayCompute] = useState();
   const [autoDecay, setAutoDecay] = useState(false);
+  const [minutes, setMinutes] = useState("");
   const [decay, setDecay] = useState({
     datetimeMeasured: "",
     datetimeDesired: "",
@@ -24,38 +25,48 @@ function App() {
   });
   
 
-  const handleChange = ({name, value}) => {setDecay(values => ({...values, [name]: value}));}
   const handleAutoDecayChange = () => setAutoDecay(prev => !prev);
   const handleSubmit = (event) => event.preventDefault();
 
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setDecay(values => ({...values, [name]: value}));
+  }
+  
   const minutesBetweenTwoDateTime = (t1, t2) => {
     const _minutes = Math.floor( (t1 - t2) / 1000 / 60 );
     const minutes = isNaN(_minutes) ? 0 : _minutes;
+    setMinutes((prev) => minutes.toString());
     return minutes;
   }
 
   useEffect(() => {
-    const t1 = (new Date(decay.datetimeDesired)).getTime();
-    const t2 = autoDecay === true
-      ? (new Date()).getTime() 
-      : (new Date(decay.datetimeMeasured)).getTime();
-    const minutes = minutesBetweenTwoDateTime(t1, t2);
-    const computeActivity = (minutes) => {
-      let _activity = (CON ** minutes) * decay.value;
+    const t2 = (new Date(decay.datetimeMeasured)).getTime();
+    const t1 = (autoDecay === true) ? (new Date().getTime()) : (new Date(decay.datetimeDesired)).getTime();
+    const _minutes = minutesBetweenTwoDateTime(t1, t2);
+    
+      let _activity = (CON ** _minutes) * decay.value;
       const activity = (decay.unit !== "Bq") 
         ? decay.unit === "GBq" 
           ? _activity * (10**9) 
           : _activity * (10**6)
         : _activity;
-        return activity;
-    }
-    const activity = computeActivity(minutes);
+        
     setDecayCompute((prev) => activity);
-  }, [decay, autoDecay]);
+  }, [decay, autoDecay, minutes]);
 
   useEffect(() => {
-    console.log("AutoDecay : ", autoDecay, "  t2 : ");
-  }, [autoDecay]);
+    if (autoDecay === true && decay.datetimeMeasured.length > 0) {
+      const interval = setInterval(() => {
+        const t2 = (new Date(decay.datetimeMeasured)).getTime();
+        const t1 = (new Date().getTime());
+        minutesBetweenTwoDateTime(t1, t2);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [autoDecay, decay.datetimeMeasured, minutes]);
+
   
   return (
     <div className="App">
@@ -74,17 +85,17 @@ function App() {
             <div>
               <h2>Date and Time</h2>
               <DateTime 
-                label="Measured" 
+                label="Measured"
+                name="datetimeMeasured"
                 value={decay.datetimeMeasured} 
-                onChange={handleChange} 
-                name="datetimeMeasured" />
+                onChange={handleChange}  />
               <br />
               <DateTime 
                 label="Desired" 
+                name="datetimeDesired"
                 value={decay.datetimeDesired} 
-                enable={decay.datetimeDesiredEnable}
-                onChange={handleChange} 
-                name="datetimeDesired" />
+                disabled={autoDecay}
+                onChange={handleChange}  />
             </div>
 
             <div>
@@ -95,7 +106,7 @@ function App() {
                 unit={decay.unit} 
                 onChange={handleChange} />
               <br />
-              <AutoDecay value={autoDecay} onChange={handleAutoDecayChange} />
+              <AutoDecay value={autoDecay} minutes={minutes} onChange={handleAutoDecayChange} />
             </div>
 
           </div>

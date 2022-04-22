@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import "./form.css";
 
-const AutoDecay = ({value, onChange}) => {
+const AutoDecay = ({value, minutes, onChange}) => {
     return (
         <div>
             <label>
@@ -13,6 +13,8 @@ const AutoDecay = ({value, onChange}) => {
                     value={value}
                     onChange={onChange}
                 />
+
+                {value && <span>&nbsp;&nbsp;<small>({minutes} min.)</small></span>}
             </label>
         </div>
     );
@@ -20,11 +22,13 @@ const AutoDecay = ({value, onChange}) => {
 
 AutoDecay.propTypes = {
     value: PropTypes.bool,
+    minutes: PropTypes.string,
     onChange: PropTypes.func.isRequired
 }
 
 AutoDecay.defaultProps = {
-    value: false
+    value: false,
+    minutes: null
 }
 
 export default AutoDecay;
