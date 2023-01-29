@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  decay:
+    build: .
+    container_name: decay-c
+    ports:
+      - "8080:80"
+    volumes:
+      - ./build:/usr/share/nginx/html
