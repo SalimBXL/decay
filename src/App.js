@@ -132,7 +132,7 @@ function App() {
       <div className='hr'/>
 
       <footer className='footpage'>
-        <small>(c)2022 Salim - PETScan Cyclotron ULB Erasme</small>
+        <small>(c)2023 Salim - PETScan Cyclotron ULB Erasme</small>
       </footer>
 
     </div>
